@@ -84,5 +84,37 @@ public class Bug1IncorrectPayout {
 		//Assert that the players winnings increased correctly
 		assertEquals((this.balance +winnings), this.player.getBalance());		
 	}
+	
+	@Test
+	public void testBalanceAfterWinProveThatPlayerNeverGetsBetBack() {
+		//The player will win by matching three dice, this is to confirm we found the bug
+		//The player should have a balance of 115 at the end of this test, but the bug will give the
+		//player 110, in order to confirm the bug we will test against this value. Once the bug is fixed
+		//this test will fail
+		
+		//Setup the return values for the three dice
+		when(this.d1.getValue()).thenReturn(DiceValue.CROWN);
+		when(this.d2.getValue()).thenReturn(DiceValue.CROWN);
+		when(this.d3.getValue()).thenReturn(DiceValue.CROWN);
+		
+		//Play a round and make set the players pick to equal CROWN
+		int winnings =this.game.playRound(this.player, DiceValue.CROWN, this.bet);
+		
+		//Verify that we do go inside dice.getValue
+		verify(this.d1).getValue();
+		verify(this.d2).getValue();
+		verify(this.d3).getValue();
+		
+		//Assert that the dice are returning the correct value
+		assertEquals(DiceValue.CROWN, this.d1.getValue());
+		assertEquals(DiceValue.CROWN, this.d2.getValue());
+		assertEquals(DiceValue.CROWN, this.d3.getValue());
+		
+		//Assert that the player did win the correct amount
+		assertEquals(15, winnings);
+		
+		//Assert that the players winnings increased correctly
+		assertEquals(110, this.player.getBalance());		
+	}
 
 }
