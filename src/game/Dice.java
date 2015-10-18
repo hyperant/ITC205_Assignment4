@@ -12,8 +12,14 @@ public class Dice {
 	}
 
 	public DiceValue roll() {
-		return DiceValue.getRandom();
-	}		
+		value =DiceValue.getRandom();
+		return value;
+	}
+	
+	public DiceValue roll(DiceValue val) {
+		value =val;
+		return val;
+	}
 	
 	public String toString() {
 		return value.toString();
