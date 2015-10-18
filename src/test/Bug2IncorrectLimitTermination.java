@@ -23,7 +23,7 @@ public class Bug2IncorrectLimitTermination {
 		//Setup the player, the player will be setup to match what is inside Main.java
 		this.playerName ="Fred";
 		this.bet =5;
-    	this.balance = 15;
+    	this.balance = 5;
     	this.limit = 0;
     	
     	this.player = new Player(this.playerName, this.balance);
@@ -38,7 +38,7 @@ public class Bug2IncorrectLimitTermination {
 	@Test
 	public void testLimitCheckIncorrect() {
 		boolean limitReached =this.player.balanceExceedsLimitBy(this.bet);
-		assertFalse(limitReached);
+		assertTrue(limitReached);
 	}
 	
 	
