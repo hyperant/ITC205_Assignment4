@@ -25,9 +25,6 @@ public class Bug1IncorrectPayout {
 
 	@Before
 	public void setUp() throws Exception {
-		this.playerName ="Fred";
-		this.bet =5;
-		
 		//Setup three dices
 		this.d1 =mock(Dice.class);
 		this.d2 =mock(Dice.class);
