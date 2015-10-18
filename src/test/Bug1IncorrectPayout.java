@@ -22,8 +22,6 @@ public class Bug1IncorrectPayout {
 	private int bet;
 	private int balance;
 	private int limit;
-	
-	private DiceValue dv;
 
 	@Before
 	public void setUp() throws Exception {
@@ -59,8 +57,32 @@ public class Bug1IncorrectPayout {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testBalanceAfterWin() {
+		//The player will win by matching d3 (dice3)
+		
+		//Setup the return values for the three dice
+		when(this.d1.getValue()).thenReturn(DiceValue.ANCHOR);
+		when(this.d2.getValue()).thenReturn(DiceValue.CLUB);
+		when(this.d3.getValue()).thenReturn(DiceValue.CROWN);
+		
+		//Play a round and make set the players pick to equal CROWN
+		int winnings =this.game.playRound(this.player, DiceValue.CROWN, this.bet);
+		
+		//Verify that we do go inside dice.getValue
+		verify(this.d1).getValue();
+		verify(this.d2).getValue();
+		verify(this.d3).getValue();
+		
+		//Assert that the dice are returning the correct value
+		assertEquals(DiceValue.ANCHOR, this.d1.getValue());
+		assertEquals(DiceValue.CLUB, this.d2.getValue());
+		assertEquals(DiceValue.CROWN, this.d3.getValue());
+		
+		//Assert that the player did win the correct amount
+		assertEquals(5, winnings);
+		
+		//Assert that the players winnings increased correctly
+		assertEquals((this.balance +winnings), this.player.getBalance());		
 	}
 
 }
