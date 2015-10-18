@@ -65,7 +65,7 @@ public class Bug3IncorrectOdds {
 		
         int round =0;
 
-        while (true)
+        for(int ii =0; ii <1000; ii++)
         {
         	round++;
             int winCount = 0;
