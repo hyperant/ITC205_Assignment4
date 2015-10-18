@@ -40,7 +40,7 @@ public class Game {
 			}
 		}
 		
-		int winnings = matches * bet;
+		int winnings =(matches * bet) +bet;
 
 		if (matches > 0) {			
 			player.receiveWinnings(winnings);
